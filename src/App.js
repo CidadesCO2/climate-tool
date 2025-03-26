@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, ButtonGroup, Table, ProgressBar } from 'react-bootstrap';
 import './App.css'; // Import custom CSS for additional styling
-import logo from "C:/Users/User/Documents/climate-tool/src/logo-in-mais.png";
-import logoCpC from "C:/Users/User/Documents/climate-tool/src/CpC-logo.png";
+import logo from "C:/Users/Filipa/Documents/climate-tool/src/logo-in-mais.png";
+import logoCpC from "C:/Users/Filipa/Documents/climate-tool/src/CpC-logo.png";
+
+//C:\Users\Filipa\Documents\climate-tool
 
 function App() {
   // State variables
@@ -75,7 +77,7 @@ function App() {
       scores: [4, 1, 4, 4, 3, 3, 4, 4, 2, 3, 3, 2],
     },
     {
-      name: "Florestas mediterrânicas",
+      name: "Florestas autóctones",
       scores: [5, 5, 5, 2, 3, 2, 2, 3, 3, 3, 3, 3],
     },
     {
