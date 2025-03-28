@@ -17,10 +17,10 @@ function App() {
   // Criteria grouped by category
   const criteriaCategories = {
     "Tecno-Económicos": [
-      "Maturidade Tecnológica (TRL)",
+      "Maturidade tecnológica",
       "CAPEX",
-      "Custo Marginal de Abatimento de CO2",
-      "Criação de Emprego",
+      "Custo marginal de abatimento de CO2",
+      "Criação de emprego",
     ],
     "Sociais": [
       "Bem-estar",
@@ -37,10 +37,10 @@ function App() {
   };
 
   const [criteria, setCriteria] = useState([
-    "Maturidade Tecnológica (TRL)",
+    "Maturidade tecnológica",
     "CAPEX",
-    "Custo Marginal de Abatimento de CO2",
-    "Criação de Emprego",
+    "Custo marginal de abatimento de CO2",
+    "Criação de emprego",
     "Bem-estar",
     "Coesão social",
     "Educação ambiental",
@@ -69,7 +69,7 @@ function App() {
       scores: [5, 1, 4, 4, 4, 4, 4, 3, 3, 3, 3, 2],
     },
     {
-      name: "Hortas Urbanas",
+      name: "Hortas urbanas",
       scores: [5, 1, 4, 2, 5, 5, 5, 3, 2, 3, 3, 4],
     },
     {
@@ -81,7 +81,7 @@ function App() {
       scores: [5, 5, 5, 2, 3, 2, 2, 3, 3, 3, 3, 3],
     },
     {
-      name: "Florestas monocultura",
+      name: "Florestas de monoculturas",
       scores: [5, 5, 5, 2, 3, 2, 2, 3, 3, 3, 3, 3],
     },
     {
@@ -89,23 +89,23 @@ function App() {
       scores: [5, 5, 5, 3, 4, 3, 3, 4, 4, 4, 4, 5],
     },
     {
-      name: "Restauro de zonas húmidas",
+      name: "Zonas húmidas",
       scores: [4, 4, 5, 3, 4, 3, 3, 5, 4, 5, 5, 4],
-    },
-    {
-      name: "Biomateriais",
-      scores: [4, 3, 3, 4, 2, 2, 2, 2, 2, 3, 3, 4],
     },
     {
       name: "Biocarvão",
       scores: [3, 3, 3, 3, 3, 2, 2, 3, 2, 2, 2, 2],
     },
     {
-      name: "Captura direta no ar",
+      name: "Biomateriais",
+      scores: [4, 3, 3, 4, 2, 2, 2, 2, 2, 3, 3, 4],
+    },
+    {
+      name: "Captura e armazenamento de carbono direto do ar (DACCS)",
       scores: [2, 2, 1, 4, 2, 1, 2, 1, 4, 1, 1, 1],
     },
     {
-      name: "BECCS",
+      name: "Bioenergia com captura e armazenamento de carbono (BECCS)",
       scores: [2, 2, 2, 5, 2, 1, 2, 1, 4, 1, 1, 1],
     },
   ];
@@ -343,29 +343,29 @@ function App() {
 
     // Ranges and explanations for each criterion (from criteria_scores.csv)
     const criteriaInfo = {
-      "Maturidade Tecnológica (TRL)": {
+      "Maturidade tecnológica (TRL)": {
         range: "Nivel 1: TRL 1-4, Nivel 2: TRL 5-6, Nivel 3: TRL 7-8, Nivel 4: TRL 9-10, Nivel 5: TRL 11",
-        explanation: "O que é: Nível de prontidão tecnológica, indicando quão desenvolvida ou pronta para aplicação está uma solução. Métrica: Normalmente classificada numa escala de 1–11 pela IEA, em que valores mais altos significam maior maturidade. TRL significa Technological Readiness Level.",
+        explanation: "Nível de prontidão tecnológica, indicando quão desenvolvida ou pronta para aplicação está uma solução. Métrica: Normalmente classificada numa escala de 1–11 pela IEA, em que valores mais altos significam maior maturidade. TRL significa Technological Readiness Level.",
       },
       "CAPEX": {
         range: "Nivel 1: >500€/tCO2, Nivel 2: 100-500€/tCO2, Nivel 3: 50-100€/tCO2, Nivel 4: 25-50€/tCO2, Nivel 5: 0-25€/tCO2",
-        explanation: "O que é: Investimento inicial para implementar a solução, distribuído pelo CO₂ removido/evitado. Métrica: Euros por tonelada de CO₂.",
+        explanation: "Investimento inicial para implementar a solução, distribuído pelo CO₂ removido/evitado. Métrica: Euros por tonelada de CO₂.",
       },
-      "Custo Marginal de Abatimento de CO2": {
+      "Custo marginal de abatimento de CO2": {
         range: "Nivel 1: >500€/tCO2, Nivel 2: 250-500€/tCO2, Nivel 3: 100-250€/tCO2, Nivel 4: 50-100€/tCO2, Nivel 5: 0-50€/tCO2",
-        explanation: "O que é: Custo total, inicial e manutenção, do projeto para sequestrar cada tonelada de CO₂. Métrica: Euros por tonelada de CO₂.",
+        explanation: "Custo total, inicial e manutenção, do projeto para sequestrar cada tonelada de CO₂. Métrica: Euros por tonelada de CO₂.",
       },
-      "Criação de Emprego": {
+      "Criação de emprego": {
         range: "Nivel 1: <0,001 FTE/tCO2, Nivel 2: 0,001-0,01 FTE/tCO2, Nivel 3: 0,01-0,1 FTE/tCO2, Nivel 4: 0,1-1 FTE/tCO2, Nivel 5: >1 FTE/tCO2",
-        explanation: "O que é: O impacto na geração de postos de trabalho, tendo em conta a quantidade de CO₂ reduzido/remoção. Métrica: FTE (Full-Time Equivalent) por tonelada de CO₂ ou indicador qualitativo se não existirem dados.",
+        explanation: "O impacto na geração de postos de trabalho, tendo em conta a quantidade de CO₂ reduzido/remoção. Métrica: FTE (Full-Time Equivalent) por tonelada de CO₂ ou indicador qualitativo se não existirem dados.",
       },
       "Bem-estar": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Melhoria do bem-estar local/comunitário (p. ex.: benefícios para a saúde mental, espaços de lazer).",
+        explanation: "Melhoria do bem-estar local/comunitário (p. ex.: benefícios para a saúde física e mental).",
       },
       "Coesão social": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Contributo para a inclusão social, interação comunitária e fortalecimento do sentido de pertença.",
+        explanation: "Contributo para a inclusão social, interação comunitária e fortalecimento do sentido de pertença.",
       },
       "Educação ambiental": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
@@ -373,11 +373,11 @@ function App() {
       },
       "Regulação climática": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Benefícios adicionais na regulação local ou regional do clima (p. ex.: arrefecimento urbano).",
+        explanation: "Benefícios adicionais na regulação local ou regional do clima (p. ex.: arrefecimento urbano).",
       },
       "Qualidade do ar": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Melhorias na qualidade do ar, como redução de poluentes e partículas.",
+        explanation: "Melhorias na qualidade do ar, como redução de poluentes e partículas.",
       },
       "Contribuição para a biodiversidade": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
@@ -385,11 +385,11 @@ function App() {
       },
       "Melhoria da qualidade da água/capacidade de retenção de água": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Impacto na qualidade da água, retenção hídrica e mitigação de cheias.",
+        explanation: "Impacto na qualidade da água, retenção hídrica e mitigação de cheias.",
       },
       "Melhoria da fertilidade/qualidade do solo": {
         range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Efeitos na saúde e fertilidade do solo (p. ex.: teor de matéria orgânica, nutrientes).",
+        explanation: "Efeitos na saúde e fertilidade do solo (p. ex.: teor de matéria orgânica, nutrientes).",
       },
     };
 
