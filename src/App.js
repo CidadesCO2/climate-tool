@@ -11,45 +11,50 @@ import logoCpC from "C:/Users/Filipa/Documents/climate-tool/src/CpC-logo.png";
 function App() {
   // State variables
   const [screen, setScreen] = useState(null); // Current screen (null, "Definições", "Simular")
-  const [activeCategory, setActiveCategory] = useState("Tecno-Económicos"); // Active category for Definições
+  const [activeCategory, setActiveCategory] = useState("Indicadores Ambientais"); // Active category for Definições
   const [activeCriterionInfo, setActiveCriterionInfo] = useState(null); // Active criterion info
 
   // Criteria grouped by category
   const criteriaCategories = {
-    "Tecno-Económicos": [
-      "Maturidade tecnológica",
-      "CAPEX",
-      "Custo marginal de abatimento de CO2",
-      "Criação de emprego",
+    "Indicadores Ambientais": [
+      "Remoção de CO<sub>2</sub>",
+      "Regulação climática",
+      "Melhoria da qualidade do ar",
+      "Contribuição para a biodiversidade",
+      "Melhoria da qualidade/capacidade de retenção de água",
+      "Melhoria da fertilidade/qualidade do solo", 
     ],
-    "Sociais": [
+    "Indicadores Sociais": [
       "Bem-estar",
       "Coesão social",
       "Educação ambiental",
     ],
-    "Ambientais": [
-      "Regulação climática",
-      "Qualidade do ar",
-      "Contribuição para a biodiversidade",
-      "Melhoria da qualidade da água/capacidade de retenção de água",
-      "Melhoria da fertilidade/qualidade do solo",
+    "Indicadores Tecno-Económicos": [
+      "Maturidade tecnológica",
+      "CAPEX",
+      "Custo marginal de abatimento de CO<sub>2</sub>",
+      "Criação de emprego",
     ],
   };
 
   const [criteria, setCriteria] = useState([
-    "Maturidade tecnológica",
-    "CAPEX",
-    "Custo marginal de abatimento de CO2",
-    "Criação de emprego",
+    "Remoção de CO<sub>2</sub>",
+    "Regulação climática",
+    "Melhoria da qualidade do ar",
+    "Contribuição para a biodiversidade",
+    "Melhoria da qualidade/capacidade de retenção de água",
+    "Melhoria da fertilidade/qualidade do solo",
     "Bem-estar",
     "Coesão social",
     "Educação ambiental",
-    "Regulação climática",
-    "Qualidade do ar",
-    "Contribuição para a biodiversidade",
-    "Melhoria da qualidade da água/capacidade de retenção de água",
-    "Melhoria da fertilidade/qualidade do solo"
+    "Maturidade tecnológica",
+    "CAPEX",
+    "Custo marginal de abatimento de CO<sub>2</sub>",
+    "Criação de emprego"
+    
+    
   ]); // List of criteria
+  const [activeSolutionInfo, setActiveSolutionInfo] = useState(null);
   const [solutions, setSolutions] = useState([]); // List of solutions
   const [currentStep, setCurrentStep] = useState(0); // Current step in the simulation
   const [comparisons, setComparisons] = useState({}); // Comparisons between criteria
@@ -62,51 +67,63 @@ function App() {
   const defaultSolutions = [
     {
       name: "Parques urbanos",
-      scores: [5, 2, 5, 4, 5, 5, 5, 5, 4, 4, 3, 3],
+      scores: [3, 4, 4, 4, 4, 3, 5, 4, 5, 5, 3, 3, 3],
+      description: "Espaços verdes em áreas urbanas que ajudam a capturar CO₂ através da vegetação, melhoram a qualidade do ar e proporcionam benefícios sociais e ecológicos."
     },
     {
       name: "Árvores de arruamento",
-      scores: [5, 1, 4, 4, 4, 4, 4, 3, 3, 3, 3, 2],
-    },
-    {
-      name: "Hortas urbanas",
-      scores: [5, 1, 4, 2, 5, 5, 5, 3, 2, 3, 3, 4],
+      scores: [3, 4, 3, 3, 3, 2, 4, 3, 4, 5, 4, 4, 3],
+      description: "Árvores plantadas ao longo de ruas e avenidas que sequestram carbono, reduzem o efeito de ilha de calor e melhoram o ambiente urbano."
     },
     {
       name: "Telhados e paredes verdes",
-      scores: [4, 1, 4, 4, 3, 3, 4, 4, 2, 3, 3, 2],
+      scores: [2, 3, 2, 3, 3, 2, 3, 3, 4, 4, 4, 4, 4],
+      description: "Superfícies de edifícios cobertas com vegetação que absorvem CO₂, isolam termicamente os edifícios e aumentam a biodiversidade urbana."
+    },
+    {
+      name: "Hortas urbanas",
+      scores: [1, 3, 2, 3, 3, 4, 5, 5, 5, 5, 3, 3, 1],
+      description: "Espaços agrícolas em zonas urbanas que capturam carbono no solo e nas plantas, promovem a produção local de alimentos e reduzem emissões associadas ao transporte."
     },
     {
       name: "Florestas autóctones",
-      scores: [5, 5, 5, 2, 3, 2, 2, 3, 3, 3, 3, 3],
+      scores: [2, 5, 5, 5, 5, 5, 5, 4, 3, 5, 3, 3, 2],
+      description: "Florestas compostas por espécies nativas que sequestram carbono de forma sustentável, promovem a biodiversidade e são mais resilientes a pragas e alterações climáticas."
     },
     {
       name: "Florestas de monoculturas",
-      scores: [5, 5, 5, 2, 3, 2, 2, 3, 3, 3, 3, 3],
+      scores: [3, 4, 3, 2, 2, 2, 3, 2, 2, 5, 2, 2, 2],
+      description: "Florestas plantadas com uma única espécie (geralmente para fins comerciais) que capturam carbono, mas com menor biodiversidade e maior vulnerabilidade ecológica."
     },
     {
       name: "Sistemas agroflorestais",
-      scores: [5, 5, 5, 3, 4, 3, 3, 4, 4, 4, 4, 5],
+      scores: [1, 4, 4, 4, 4, 5, 4, 3, 3, 5, 2, 2, 2],
+      description: "Integração de árvores e culturas agrícolas no mesmo espaço, promovendo o sequestro de carbono no solo e na biomassa, além de melhorar a produtividade e a resiliência dos sistemas agrícolas."
     },
     {
       name: "Zonas húmidas",
-      scores: [4, 4, 5, 3, 4, 3, 3, 5, 4, 5, 5, 4],
+      scores: [2, 5, 4, 5, 5, 4, 5, 4, 3, 4, 2, 2, 3],
+      description: "Ecossistemas como pântanos e sapais que armazenam grandes quantidades de carbono no solo saturado de água, sendo cruciais para a mitigação climática e conservação da biodiversidade."
     },
     {
       name: "Biocarvão",
-      scores: [3, 3, 3, 3, 3, 2, 2, 3, 2, 2, 2, 2],
+      scores: [4, 2, 2, 3, 4, 4, 2, 2, 2, 3, 3, 3, 4],
+      description: "Carvão vegetal produzido a partir de biomassa e aplicado ao solo, onde armazena carbono por longos períodos e melhora a fertilidade do solo."
     },
     {
       name: "Biomateriais",
-      scores: [4, 3, 3, 4, 2, 2, 2, 2, 2, 3, 3, 4],
+      scores: [4, 3, 2, 1, 2, 2, 3, 2, 2, 4, 3, 3, 4],
+      description: "Materiais de construção ou produtos feitos a partir de biomassa (como madeira, cânhamo ou micélio) que armazenam carbono durante o seu ciclo de vida."
     },
     {
       name: "Captura e armazenamento de carbono direto do ar (DACCS)",
-      scores: [2, 2, 1, 4, 2, 1, 2, 1, 4, 1, 1, 1],
+      scores: [5, 1, 5, 1, 1, 1, 2, 1, 3, 2, 5, 5, 2],
+      description: "Tecnologia que remove CO₂ diretamente da atmosfera usando processos químicos e o armazena de forma segura, geralmente em formações geológicas."
     },
     {
       name: "Bioenergia com captura e armazenamento de carbono (BECCS)",
-      scores: [2, 2, 2, 5, 2, 1, 2, 1, 4, 1, 1, 1],
+      scores: [4, 1, 5, 1, 1, 1, 2, 1, 3, 2, 5, 5, 2],
+      description: "Combinação da produção de energia a partir de biomassa com a captura e armazenamento do CO₂ emitido, resultando em emissões líquidas negativas."
     },
   ];
 
@@ -222,7 +239,7 @@ function App() {
           {weights.length > 0 && criteria.map((criterion, index) => (
             <div key={index} className="card">
               <div className="card-title">
-                {criterion}
+                 <span dangerouslySetInnerHTML={{ __html: criterion }} />
               </div>
               <div className="card-score">
                 Peso: {weights[index].toFixed(2)}
@@ -341,57 +358,73 @@ function App() {
     // Get the criteria for the active category
     const activeCriteria = criteriaCategories[activeCategory];
 
-    // Ranges and explanations for each criterion (from criteria_scores.csv)
+    // Ranges and explanations for each indicator (from criteria_scores.csv)
     const criteriaInfo = {
-      "Maturidade tecnológica (TRL)": {
-        range: "Nivel 1: TRL 1-4, Nivel 2: TRL 5-6, Nivel 3: TRL 7-8, Nivel 4: TRL 9-10, Nivel 5: TRL 11",
-        explanation: "Nível de prontidão tecnológica, indicando quão desenvolvida ou pronta para aplicação está uma solução. Métrica: Normalmente classificada numa escala de 1–11 pela IEA, em que valores mais altos significam maior maturidade. TRL significa Technological Readiness Level.",
-      },
-      "CAPEX": {
-        range: "Nivel 1: >500€/tCO2, Nivel 2: 100-500€/tCO2, Nivel 3: 50-100€/tCO2, Nivel 4: 25-50€/tCO2, Nivel 5: 0-25€/tCO2",
-        explanation: "Investimento inicial para implementar a solução, distribuído pelo CO₂ removido/evitado. Métrica: Euros por tonelada de CO₂.",
-      },
-      "Custo marginal de abatimento de CO2": {
-        range: "Nivel 1: >500€/tCO2, Nivel 2: 250-500€/tCO2, Nivel 3: 100-250€/tCO2, Nivel 4: 50-100€/tCO2, Nivel 5: 0-50€/tCO2",
-        explanation: "Custo total, inicial e manutenção, do projeto para sequestrar cada tonelada de CO₂. Métrica: Euros por tonelada de CO₂.",
-      },
-      "Criação de emprego": {
-        range: "Nivel 1: <0,001 FTE/tCO2, Nivel 2: 0,001-0,01 FTE/tCO2, Nivel 3: 0,01-0,1 FTE/tCO2, Nivel 4: 0,1-1 FTE/tCO2, Nivel 5: >1 FTE/tCO2",
-        explanation: "O impacto na geração de postos de trabalho, tendo em conta a quantidade de CO₂ reduzido/remoção. Métrica: FTE (Full-Time Equivalent) por tonelada de CO₂ ou indicador qualitativo se não existirem dados.",
-      },
-      "Bem-estar": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "Melhoria do bem-estar local/comunitário (p. ex.: benefícios para a saúde física e mental).",
-      },
-      "Coesão social": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "Contributo para a inclusão social, interação comunitária e fortalecimento do sentido de pertença.",
-      },
-      "Educação ambiental": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Potencial para promover conhecimentos e consciencialização ambiental.",
+      "Remoção de CO<sub>2</sub>": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Quantidade de CO₂ retirada da atmosfera por uma determinada solução de base natural ou tecnológica, contribuindo para a mitigação das alterações climáticas.",
       },
       "Regulação climática": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Benefícios adicionais na regulação local ou regional do clima (p. ex.: arrefecimento urbano).",
       },
-      "Qualidade do ar": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
+      "Melhoria da qualidade do ar": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Melhorias na qualidade do ar, como redução de poluentes e partículas.",
       },
       "Contribuição para a biodiversidade": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
-        explanation: "O que é: Capacidade de proteger ou aumentar a diversidade de espécies e habitats.",
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Capacidade de proteger ou aumentar a diversidade de espécies e habitats e promoção da conectividade ecológica.",
       },
-      "Melhoria da qualidade da água/capacidade de retenção de água": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
+      "Melhoria da qualidade/capacidade de retenção de água": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Impacto na qualidade da água, retenção hídrica e mitigação de cheias.",
       },
       "Melhoria da fertilidade/qualidade do solo": {
-        range: "Nivel 1: Negativo, Nivel 2: Baixo ou Nulo, Nivel 3: Moderado, Nivel 4: Alto, Nivel 5: Muito Alto",
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Efeitos na saúde e fertilidade do solo (p. ex.: teor de matéria orgânica, nutrientes).",
       },
-    };
+      "Bem-estar": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Melhoria do bem-estar local/comunitário (p. ex.: benefícios para a saúde física e mental).",
+      },
+      "Coesão social": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Contributo para a inclusão social, interação comunitária e fortalecimento do sentido de pertença.",
+      },
+      "Educação ambiental": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Potencial para promover conhecimentos e consciencialização ambiental.",},
+      "Maturidade tecnológica": {
+       numericRange: "1-5",
+       textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+       explanation: "Nível de prontidão tecnológica, indicando quão desenvolvida ou pronta para aplicação está uma solução. Métrica: Normalmente classificada numa escala de 1–11 pela IEA, em que valores mais altos significam maior maturidade. TRL significa Technological Readiness Level.",
+      },
+      "CAPEX": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Investimento inicial para implementar a solução, distribuído pelo CO₂ removido/evitado. Métrica: Euros por tonelada de CO₂.",
+      },
+      "Custo marginal de abatimento de CO<sub>2</sub>": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "Custo total, inicial e manutenção, do projeto para sequestrar cada tonelada de CO₂. Métrica: Euros por tonelada de CO₂.",
+      },
+      "Criação de emprego": {
+        numericRange: "1-5",
+        textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
+        explanation: "O impacto na geração de postos de trabalho, tendo em conta a quantidade de CO₂ reduzido/remoção. Métrica: FTE (Full-Time Equivalent) por tonelada de CO₂ ou indicador qualitativo se não existirem dados.",
+      },
+        };
 
     return (
       <Container className="mt-4">
@@ -409,40 +442,40 @@ function App() {
         {/* Category Buttons */}
         <div className="mb-4">
           <Button
-            className={`common-button ${activeCategory === "Tecno-Económicos" ? "active" : ""}`}
-            onClick={() => setActiveCategory("Tecno-Económicos")}
+            className={`common-button ${activeCategory === "Indicadores Ambientais" ? "active" : ""}`}
+            onClick={() => setActiveCategory("Indicadores Ambientais")}
           >
-            Tecno-Económicos
+            Indicadores Ambientais
           </Button>
           <Button
-            className={`common-button ${activeCategory === "Sociais" ? "active" : ""}`}
-            onClick={() => setActiveCategory("Sociais")}
+            className={`common-button ${activeCategory === "Indicadores Sociais" ? "active" : ""}`}
+            onClick={() => setActiveCategory("Indicadores Sociais")}
           >
-            Sociais
+            Indicadores Sociais
           </Button>
           <Button
-            className={`common-button ${activeCategory === "Ambientais" ? "active" : ""}`}
-            onClick={() => setActiveCategory("Ambientais")}
+            className={`common-button ${activeCategory === "Indicadores Tecno-Económicos" ? "active" : ""}`}
+            onClick={() => setActiveCategory("Indicadores Tecno-Económicos")}
           >
-            Ambientais
+            Indicadores Tecno-Económicos
           </Button>
         </div>
         {/* Table */}
         <Table striped bordered hover className="shadow-md rounded-lg overflow-hidden">
           <thead className="bg-gray-200 text-gray-700 text-center">
             <tr>
-              <th style={{ width: `${columnWidth}px` }}>Solução</th>
+              <th style={{ width: `${columnWidth}px` }}>Estratégia de remoção de CO₂</th>
               {activeCriteria.map((criterion, index) => (
                 <th key={index} style={{ width: `${columnWidth}px` }}>
-                  {criterion}
-                  <Button
-                    variant="link"
-                    className="p-0 ms-2"
+                  <span dangerouslySetInnerHTML={{ __html: criterion }} />
+                  <button
+                    className="p-0 ms-2 grey-info-btn"
                     onClick={() => setActiveCriterionInfo(criteriaInfo[criterion])}
+                    type="button"
                   >
                     ℹ️
-                  </Button>
-                </th>
+                  </button>
+                  </th>
               ))}
             </tr>
           </thead>
@@ -451,7 +484,14 @@ function App() {
               <tr key={solutionIndex}>
                 <td className="font-semibold p-2" style={{ width: `${columnWidth}px` }}>
                   {solution.name}
-                </td>
+                  <button
+                    className="p-0 ms-2 grey-info-btn"
+                    onClick={() => setActiveSolutionInfo(solution)}
+                    type="button"
+                  >
+                    ℹ️
+                  </button>
+                  </td>
                 {solution.scores
                   .slice(
                     criteria.indexOf(activeCriteria[0]),
@@ -483,14 +523,15 @@ function App() {
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Informação do Critério</h5>
+                  <h5 className="modal-title">Informação sobre o indicador</h5>
                   <button type="button" className="close" onClick={() => setActiveCriterionInfo(null)}>
                     <span>&times;</span>
                   </button>
                 </div>
                 <div className="modal-body">
-                  <p><strong>Faixa de Valores:</strong> {activeCriterionInfo.range}</p>
-                  <p><strong>Explicação:</strong> {activeCriterionInfo.explanation}</p>
+                  <p><strong>Pontuação:</strong> {activeCriterionInfo.numericRange}</p>
+                  <p><strong>Classificação qualitativa:</strong> {activeCriterionInfo.textRange}</p>
+                  <p><strong>Definição:</strong> {activeCriterionInfo.explanation}</p>
                 </div>
                 <div className="modal-footer">
                   <Button variant="secondary" onClick={() => setActiveCriterionInfo(null)}>
@@ -501,6 +542,29 @@ function App() {
             </div>
           </div>
         )}
+        {activeSolutionInfo && (
+          <div className="modal show d-block" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Informação sobre a estratégia</h5>
+                  <button type="button" className="close" onClick={() => setActiveSolutionInfo(null)}>
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <p><strong>Nome:</strong> {activeSolutionInfo.name}</p>
+                  <p><strong>Descrição:</strong> {activeSolutionInfo.description}</p>
+                </div>
+                <div className="modal-footer">
+                  <Button variant="secondary" onClick={() => setActiveSolutionInfo(null)}>
+                    Fechar
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+      )}
       </Container>
     );
   };

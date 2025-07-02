@@ -321,3 +321,13 @@ input {
 input:focus {
   border-bottom: 1px solid blue; /* Highlight underline on focus */
 }
+
+.grey-info-btn, .grey-info-btn:focus, .grey-info-btn:active, .grey-info-btn:hover {
+  color: #888 !important;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
