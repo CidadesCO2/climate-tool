@@ -10,14 +10,14 @@ import logoCpC from "C:/Users/Filipa/Documents/climate-tool/src/CpC-logo.png";
 
 function App() {
   // State variables
-  const [screen, setScreen] = useState(null); // Current screen (null, "Definições", "Simular")
-  const [activeCategory, setActiveCategory] = useState("Indicadores Ambientais"); // Active category for Definições
+  const [screen, setScreen] = useState(null); // Current screen (null, "Indicadores", "Simular")
+  const [activeCategory, setActiveCategory] = useState("Indicadores Ambientais"); // Active category for Indicadores
   const [activeCriterionInfo, setActiveCriterionInfo] = useState(null); // Active criterion info
 
   // Criteria grouped by category
   const criteriaCategories = {
     "Indicadores Ambientais": [
-      "Remoção de CO<sub>2</sub>",
+      "Remoção de CO₂",
       "Regulação climática",
       "Melhoria da qualidade do ar",
       "Contribuição para a biodiversidade",
@@ -32,13 +32,13 @@ function App() {
     "Indicadores Tecno-Económicos": [
       "Maturidade tecnológica",
       "CAPEX",
-      "Custo marginal de abatimento de CO<sub>2</sub>",
+      "Custo marginal de abatimento de CO₂",
       "Criação de emprego",
     ],
   };
 
   const [criteria, setCriteria] = useState([
-    "Remoção de CO<sub>2</sub>",
+    "Remoção de CO₂",
     "Regulação climática",
     "Melhoria da qualidade do ar",
     "Contribuição para a biodiversidade",
@@ -49,7 +49,7 @@ function App() {
     "Educação ambiental",
     "Maturidade tecnológica",
     "CAPEX",
-    "Custo marginal de abatimento de CO<sub>2</sub>",
+    "Custo marginal de abatimento de CO₂",
     "Criação de emprego"
     
     
@@ -72,51 +72,51 @@ function App() {
     },
     {
       name: "Árvores de arruamento",
-      scores: [3, 4, 3, 3, 3, 2, 4, 3, 4, 5, 4, 4, 3],
+      scores: [3, 4, 3, 3, 3, 2, 4, 3, 4, 5, 3, 3, 3],
       description: "Árvores plantadas ao longo de ruas e avenidas que sequestram carbono, reduzem o efeito de ilha de calor e melhoram o ambiente urbano."
     },
     {
       name: "Telhados e paredes verdes",
-      scores: [2, 3, 2, 3, 3, 2, 3, 3, 4, 4, 4, 4, 4],
+      scores: [2, 3, 2, 3, 3, 2, 3, 3, 4, 4, 3, 4, 4],
       description: "Superfícies de edifícios cobertas com vegetação que absorvem CO₂, isolam termicamente os edifícios e aumentam a biodiversidade urbana."
     },
     {
       name: "Hortas urbanas",
-      scores: [1, 3, 2, 3, 3, 4, 5, 5, 5, 5, 3, 3, 1],
+      scores: [1, 3, 2, 3, 3, 4, 5, 5, 5, 5, 2, 2, 1],
       description: "Espaços agrícolas em zonas urbanas que capturam carbono no solo e nas plantas, promovem a produção local de alimentos e reduzem emissões associadas ao transporte."
     },
     {
       name: "Florestas autóctones",
-      scores: [2, 5, 5, 5, 5, 5, 5, 4, 3, 5, 3, 3, 2],
+      scores: [2, 5, 5, 5, 5, 5, 5, 4, 3, 5, 1, 1, 1],
       description: "Florestas compostas por espécies nativas que sequestram carbono de forma sustentável, promovem a biodiversidade e são mais resilientes a pragas e alterações climáticas."
     },
     {
       name: "Florestas de monoculturas",
-      scores: [3, 4, 3, 2, 2, 2, 3, 2, 2, 5, 2, 2, 2],
+      scores: [3, 4, 3, 2, 2, 2, 3, 2, 2, 5, 1, 1, 3],
       description: "Florestas plantadas com uma única espécie (geralmente para fins comerciais) que capturam carbono, mas com menor biodiversidade e maior vulnerabilidade ecológica."
     },
     {
       name: "Sistemas agroflorestais",
-      scores: [1, 4, 4, 4, 4, 5, 4, 3, 3, 5, 2, 2, 2],
+      scores: [1, 4, 4, 4, 4, 5, 4, 3, 3, 5, 1, 1, 2],
       description: "Integração de árvores e culturas agrícolas no mesmo espaço, promovendo o sequestro de carbono no solo e na biomassa, além de melhorar a produtividade e a resiliência dos sistemas agrícolas."
     },
     {
       name: "Zonas húmidas",
-      scores: [2, 5, 4, 5, 5, 4, 5, 4, 3, 4, 2, 2, 3],
+      scores: [2, 5, 4, 5, 5, 4, 5, 4, 3, 4, 2, 1, 1],
       description: "Ecossistemas como pântanos e sapais que armazenam grandes quantidades de carbono no solo saturado de água, sendo cruciais para a mitigação climática e conservação da biodiversidade."
     },
     {
       name: "Biocarvão",
-      scores: [4, 2, 2, 3, 4, 4, 2, 2, 2, 3, 3, 3, 4],
+      scores: [4, 2, 2, 3, 4, 4, 2, 2, 2, 3, 4, 3, 5],
       description: "Carvão vegetal produzido a partir de biomassa e aplicado ao solo, onde armazena carbono por longos períodos e melhora a fertilidade do solo."
     },
     {
       name: "Biomateriais",
-      scores: [4, 3, 2, 1, 2, 2, 3, 2, 2, 4, 3, 3, 4],
+      scores: [4, 3, 2, 1, 2, 2, 3, 2, 2, 4, 4, 3, 5],
       description: "Materiais de construção ou produtos feitos a partir de biomassa (como madeira, cânhamo ou micélio) que armazenam carbono durante o seu ciclo de vida."
     },
     {
-      name: "Captura e armazenamento de carbono direto do ar (DACCS)",
+      name: "Captura e armazenamento direto de carbono no ar (DACCS)",
       scores: [5, 1, 5, 1, 1, 1, 2, 1, 3, 2, 5, 5, 2],
       description: "Tecnologia que remove CO₂ diretamente da atmosfera usando processos químicos e o armazena de forma segura, geralmente em formações geológicas."
     },
@@ -231,7 +231,7 @@ function App() {
           {/* Header Section */}
           <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-6 rounded-lg shadow-md mb-6">
             <h1 className="text-4xl font-bold drop-shadow-md" style={{ color: "white" }}>
-              Simulador de Decisão de Estratégias de Remoção de CO<sub>2</sub>
+              Simulador de Decisão de Estratégias de Remoção de CO₂
             </h1>
           </div>
           <br />
@@ -292,7 +292,7 @@ function App() {
         {/* Header Section */}
         <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-6 rounded-lg shadow-md mb-6">
             <h1 className="text-4xl font-bold drop-shadow-md" style={{ color: "white" }}>
-              Simulador de Decisão de Estratégias de Remoção de CO<sub>2</sub>
+              Simulador de Decisão de Estratégias de Remoção de CO₂
             </h1>
         </div>
         <br />
@@ -360,7 +360,7 @@ function App() {
 
     // Ranges and explanations for each indicator (from criteria_scores.csv)
     const criteriaInfo = {
-      "Remoção de CO<sub>2</sub>": {
+      "Remoção de CO₂": {
         numericRange: "1-5",
         textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Quantidade de CO₂ retirada da atmosfera por uma determinada solução de base natural ou tecnológica, contribuindo para a mitigação das alterações climáticas.",
@@ -414,7 +414,7 @@ function App() {
         textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Investimento inicial para implementar a solução, distribuído pelo CO₂ removido/evitado. Métrica: Euros por tonelada de CO₂.",
       },
-      "Custo marginal de abatimento de CO<sub>2</sub>": {
+      "Custo marginal de abatimento de CO₂": {
         numericRange: "1-5",
         textRange: "Nulo, Baixo, Moderado, Alto, Muito Alto",
         explanation: "Custo total, inicial e manutenção, do projeto para sequestrar cada tonelada de CO₂. Métrica: Euros por tonelada de CO₂.",
@@ -431,7 +431,7 @@ function App() {
         {/* Header Section */}
         <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-6 rounded-lg shadow-md mb-6">
           <h1 className="text-4xl font-bold drop-shadow-md" style={{ color: "white" }}>
-            Definições - {activeCategory}
+            Indicadores
           </h1>
         </div>
         <br />
@@ -576,14 +576,14 @@ function App() {
           {/* Header Section */}
           <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white py-6 rounded-lg shadow-md mb-6">
             <h1 className="text-4xl font-bold drop-shadow-md" style={{ color: "white" }}>
-              Simulador de Decisão de Estratégias de Remoção de CO<sub>2</sub>
+              Simulador de Decisão de Estratégias de Remoção de CO₂
             </h1>
           </div>
           <br />
           {/* Buttons */}
           <div className="flex justify-center gap-4 mb-6">
-            <Button className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition" onClick={() => setScreen("Definições")}>
-              Definições
+            <Button className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition" onClick={() => setScreen("Indicadores")}>
+              Indicadores
             </Button>
             <Button className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition" onClick={() => setScreen("Simular")}>
               Simular
@@ -595,33 +595,25 @@ function App() {
             <div className="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transition">
               <h2 className="text-xl font-bold mb-2">ℹ️ Sobre a Ferramenta</h2>
               <p className="text-gray-600 leading-relaxed">
-                Este simulador utiliza o método AHP (Analytic Hierarchy Process) para ajudar na tomada de decisão
-                sobre estratégias de remoção de carbono. O AHP é uma técnica que permite comparar critérios e alternativas
-                de forma estruturada, atribuindo pesos e pontuações para identificar a melhor estratégia.
+                Esta ferramenta de apoio à decisão foi desenvolvida para avaliar estratégias de remoção de dióxido de carbono (CO₂) em contextos urbanos, considerando critérios ambientais, sociais e teco-económicos. A abordagem multicritério permite comparar as diferentes estratégias de forma estruturada e transparente, integrando diferentes dimensões, com o objetivo de apoiar decisões mais informadas e adaptadas ao território.
               </p>
             </div>
             <div className="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transition">
               <h2 className="text-xl font-bold mb-2">⚙️ Como funciona o método AHP?</h2>
               <p className="text-gray-600 leading-relaxed">
-                O AHP funciona comparando pares de critérios para determinar sua importância relativa. A partir dessas
-                comparações, são calculados pesos para cada critério. Esses pesos são então usados para calcular
-                uma pontuação final para cada estratégia, ajudando a identificar a melhor escolha.
+                O método baseia-se em comparações par a par entre critérios, através das quais se determina a sua importância relativa. Os pesos resultantes são usados para avaliar e classificar as estratégias de acordo com o seu desempenho face aos critérios definidos.
               </p>
             </div>
             <div className="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transition">
-              <h2 className="text-xl font-bold mb-2">📋 O que pode fazer em "Definições"?</h2>
+              <h2 className="text-xl font-bold mb-2">📋 O que pode fazer em "Indicadores"?</h2>
               <p className="text-gray-600 leading-relaxed">
-                Na secção "Definições", pode visualizar e editar os parâmetros das estratégias de remoção de carbono
-                Cada estratégia possui uma pontuação para diferentes critérios, que podem ser ajustadas conforme necessário.
-                Pode redefinir os valores para os padrões originais.
+                Na secção “Indicadores”, é possível visualizar e ajustar as classificações dos diferentes critérios das estratégias. Cada estratégia tem pontuações associadas aos critérios de avaliação, que podem ser editadas manualmente. Existe também a opção de restaurar os valores predefinidos.
               </p>
             </div>
             <div className="bg-white shadow-lg rounded-xl p-6 hover:scale-105 transition">
               <h2 className="text-xl font-bold mb-2">🔍 O que pode fazer em "Simular"?</h2>
               <p className="text-gray-600 leading-relaxed">
-                Na secção "Simular", será guiado por uma série de comparações entre critérios para determinar
-                a importância relativa de cada um. Com base nos pesos calculados, o simulador avalia as estratégias
-                e apresenta as melhores opções.
+                Na secção “Simular”, será guiado por um conjunto de comparações sobre os pesos de cada critério. Com base nas suas escolhas, o simulador calcula os pesos relativos e apresenta uma classificação das estratégias, destacando aquelas que melhor respondem aos objetivos definidos.
               </p>
             </div>
             
@@ -629,7 +621,7 @@ function App() {
         </div>
       ) : (
         <div>
-          {screen === "Definições" && renderDefinicoes()}
+          {screen === "Indicadores" && renderDefinicoes()}
           {screen === "Simular" && renderSimular()}
         </div>
       )}
